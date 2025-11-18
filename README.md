@@ -47,7 +47,6 @@ const u: User = {
 - যদি আপনি OOP ডিজাইন বা class-based architecture follow করেন।
 - declaration merging চান, অর্থাৎ একই interface কয়েকবার declare করা এবং একত্রিত হওয়া।
 
----
 
 ## **Type:**
 
@@ -111,7 +110,6 @@ const admin: Admin = {
 | **কোনটা কখন ব্যবহার করবেন** | Object structure বা OOP ডিজাইনের জন্য     | Complex টাইপ বা flexibile টাইপ তৈরি করতে                     |
 | **Flexibility**             | কম, শুধু basic object structure           | বেশি, complex types combine করা যায়                          |
 
----
 
 ### **Real-World Backend Use Case**
 
@@ -142,8 +140,6 @@ type UserResponse =
 - User হলো একটি solid model → interface
 - UserResponse হলো একটি union → type alias
   `এই combinationটা backend-এ খুব common এবং clean`
-
----
 
 ---
 
@@ -206,9 +202,8 @@ key = "email"; // Error! "email" এই key "User" টাইপে নেই
 
 এখানে TypeScript নিশ্চিত করেছে যে আপনি কেবলমাত্র `User` টাইপের বৈধ key গুলিই ব্যবহার করছেন। "email" এড করে দিলে TypeScript সরাসরি error দিবে।
 
-### কেন এবং কিভাবে `keyof` ব্যবহার করবেন?
 
-**কেন ব্যবহার করবেন?**
+**কেন `keyof` ব্যবহার করবেন?**
 
 1. **Type Safety:** `keyof` ব্যবহার করলে আপনার কোডের সব ধরনের key একসাথে union type হিসেবে আসবে, ফলে আপনি ভুল key ব্যবহার করতে পারবেন না। এটি কোডকে আরও safe এবং reliable করে।
 
@@ -216,7 +211,7 @@ key = "email"; // Error! "email" এই key "User" টাইপে নেই
 
 3. **Dynamic Key Access:** অনেক সময় dynamic key access করতে হয়, যেমন যখন কোনো key এর উপর ভিত্তি করে কিছু operation করতে হয়। `keyof` ব্যবহার করে আপনি এটা খুব সহজেই করতে পারেন।
 
-**কিভাবে ব্যবহার করবেন?**
+**কিভাবে `keyof` ব্যবহার করবেন?**
 
 `keyof` মূলত কোনো type বা object এর key গুলোকে union type হিসেবে নিয়ে আসে। আপনি যখন type-safe generic function লিখবেন, তখন `keyof` এর ব্যবহার বেশ কার্যকর। আসুন দেখি এমন একটি উদাহরণ:
 
@@ -238,7 +233,7 @@ const userAge = getValue(user, "age"); // 28
 
 এখানে, `getValue` ফাংশনে `T` হলো generic টাইপ, এবং `K extends keyof T` মানে `K` অবশ্যই `T` টাইপের কোনো key হতে হবে। ফলে `getValue` ফাংশনটি কেবলমাত্র valid key গ্রহণ করবে।
 
-### `keyof` Example
+#### `keyof` Example
 
 ধরা যাক, আপনি একটি backend service তৈরি করছেন যেখানে আপনি বিভিন্ন `User` ডেটা manage করছেন। আপনার `User` entity-এর structure মাঝে মাঝে পরিবর্তন হতে পারে। এর মধ্যে `keyof` ব্যবহার করে আপনি যেকোনো ক্ষেত্রেই কোডটিকে safe রাখতে পারবেন।
 
@@ -270,7 +265,7 @@ const invalidUpdate = updateUser(user, "address", "123 Street"); // Error!
 
 এখানে, `updateUser` ফাংশনটি `keyof` ব্যবহার করে যেকোনো valid key পরিবর্তন করতে দেয় এবং invalid key দিলে TypeScript সরাসরি error দিয়ে দিবে। এতে করে আপনি নিশ্চিত হতে পারেন যে ভুল key এর কারণে কোনো runtime error হবে না।
 
-### কোথায় `keyof` ব্যবহার করবেন?
+**কোথায় `keyof` ব্যবহার করবেন?**
 
 - **যখন আপনি object এর key গুলোর সাথে কাজ করবেন** এবং সেগুলোকে dynamic ভাবে access করতে হবে।
 - **যখন generic functions লিখবেন**, যেখানে object টাইপের key গুলোর উপর নির্ভরশীল টাইপের হিসাব রাখতে হবে।
